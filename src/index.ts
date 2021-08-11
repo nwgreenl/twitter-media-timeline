@@ -3,7 +3,7 @@ import {
   TWITTER_TIMELINE_PATH,
   SELECTORS,
   MEDIA_CONSTRUCTORS_REGEX,
-} from './const.js';
+} from './consts.js';
 
 type EventListenerCallback = (this: Document, ev: Event) => any;
 
