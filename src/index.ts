@@ -44,13 +44,16 @@ const findTweetContainer = (
 };
 
 // path helper
-const onTimelinePage = (path: string) => {
-  return path.endsWith(TWITTER_TIMELINE_PATH);
+const onTimelinePage = (url: string) => {
+  return (
+    url.endsWith(TWITTER_TIMELINE_PATH) ||
+    url.endsWith(TWITTER_TIMELINE_PATH + '/')
+  );
 };
 
 // main
 const hideNonMediaTweetsFromDom = () => {
-  if (!onTimelinePage(location.pathname)) return;
+  if (!onTimelinePage(location.href)) return;
 
   // find the timeline container and it's immediate children (if any)
   // so that we know where to stop when looking for tweet containers
