@@ -7,6 +7,13 @@ This is a simple chrome extension that hides tweets that do not contain either a
 
 Icon by [Sohyun Kim](https://sohyun.kim/)
 
+## Install
+1. Navigate to the [releases page](https://github.com/nwgreenl/twitter-media-timeline/releases/).
+2. Download the newest release's attached `.crx` file.
+3. Open the Extension Management page by navigating to `chrome://extensions`.
+4. Drag and drop the release's `.crx` file.
+
+
 ## Dev
 
 ### Setup
@@ -23,7 +30,7 @@ npm i
 npm run build
 ```
 
-### Load
+### Load/Install
 
 1. Build the extension.
 2. Open the Extension Management page by navigating to `chrome://extensions`.
