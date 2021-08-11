@@ -1,0 +1,25 @@
+{
+  "name": "twitter-media-timeline",
+  "version": "0.0.1",
+  "description": "A simple chrome extension that hides tweets that do not contain either an image or a video from your timeline, similar to the 'Media' tab on a user's profile",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "build": "copyfiles -u 1 ./public/* ./public/*/* dist && npm.cmd run compile",
+    "prepare": "npm.cmd run compile",
+    "pretest": "npm.cmd run compile",
+    "posttest": "npm.cmd run lint"
+  },
+  "author": "Nick Greenlees",
+  "license": "ISC",
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "gts": "^3.1.0",
+    "typescript": "^4.0.3",
+    "@types/node": "^14.11.2"
+  }
+}
