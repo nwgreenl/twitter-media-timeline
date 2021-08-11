@@ -1,6 +1,6 @@
 {
   "name": "twitter-media-timeline",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple chrome extension that hides tweets that do not contain either an image or a video from your timeline, similar to the 'Media' tab on a user's profile",
   "main": "src/index.js",
   "scripts": {

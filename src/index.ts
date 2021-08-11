@@ -1,13 +1,11 @@
-type EventListenerCallback = (this: Document, ev: Event) => any;
+import {
+  APP_NAME,
+  TWITTER_TIMELINE_PATH,
+  SELECTORS,
+  MEDIA_CONSTRUCTORS_REGEX,
+} from './const.js';
 
-const APP_NAME = 'Twitter Media Timeline';
-const TWITTER_TIMELINE_PATH = '/home';
-const SELECTORS = {
-  timelineContainer: 'div[aria-label*="Timeline"]',
-  tweet: 'div[data-testid="tweet"]',
-};
-const MEDIA_CONSTRUCTORS = ['HTMLImageElement', 'HTMLVideoElement'];
-const MEDIA_CONSTRUCTORS_REGEX = new RegExp(MEDIA_CONSTRUCTORS.join('|'), 'i');
+type EventListenerCallback = (this: Document, ev: Event) => any;
 
 // dfs helpers
 const tweetContainsMedia = (tweet: Element): Boolean => {
@@ -125,8 +123,41 @@ const throttle = (func: Function, timeFrame: number): EventListenerCallback => {
   };
 };
 
-// run once tweets have loaded and then trigger every 500ms on scroll
-waitForElement(SELECTORS.tweet).then(_element => {
-  hideNonMediaTweetsFromDom();
-  document.addEventListener('scroll', throttle(hideNonMediaTweetsFromDom, 500));
-});
+// content script
+export const init = async () => {
+  const throttledHideNonMediaTweetsFromDom = throttle(
+    hideNonMediaTweetsFromDom,
+    500
+  );
+
+  const removeScrollListener = () => {
+    document.removeEventListener('scroll', throttledHideNonMediaTweetsFromDom);
+  };
+  const addScrollListener = () => {
+    removeScrollListener();
+    document.addEventListener('scroll', throttledHideNonMediaTweetsFromDom);
+  };
+  const run = () => {
+    hideNonMediaTweetsFromDom();
+    addScrollListener();
+  };
+
+  // run once tweets have loaded
+  await waitForElement(SELECTORS.tweet);
+  run();
+
+  // listen for path changes to run and remove scroll listener appropriately
+  document.body.addEventListener(
+    'click',
+    () => {
+      requestAnimationFrame(() => {
+        if (onTimelinePage(location.href)) {
+          run();
+        } else {
+          removeScrollListener();
+        }
+      });
+    },
+    true
+  );
+};
