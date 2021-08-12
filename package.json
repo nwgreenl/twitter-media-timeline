@@ -9,17 +9,14 @@
     "clean": "gts clean",
     "compile": "tsc",
     "fix": "gts fix",
-    "build": "copyfiles -u 1 ./public/* ./public/*/* dist && npm.cmd run compile",
-    "prepare": "npm.cmd run compile",
-    "pretest": "npm.cmd run compile",
-    "posttest": "npm.cmd run lint"
+    "build": "copyfiles -u 1 ./public/* ./public/*/* dist && tsc"
   },
   "author": "Nick Greenlees",
-  "license": "ISC",
+  "license": "GNU GPL V3",
   "devDependencies": {
+    "@types/node": "^14.11.2",
     "copyfiles": "^2.4.1",
     "gts": "^3.1.0",
-    "typescript": "^4.0.3",
-    "@types/node": "^14.11.2"
+    "typescript": "^4.0.3"
   }
 }
