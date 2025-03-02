@@ -10,23 +10,12 @@ This is a simple chrome extension that hides tweets that do not contain either a
 
 Icon by [Sohyun Kim](https://sohyun.kim/)
 
-## Setup
+## Build + Install
 
 Note that this project uses [gts](https://www.npmjs.com/package/gts) for Typescript things and [copyfiles](https://www.npmjs.com/package/copyfiles) for os-agnostic copying (when building).
 
-```
-npm i
-```
-
-## Build
-
-```
-npm run build
-```
-
-## Load/Install
-
-1. Build the extension.
-2. Open the Extension Management page by navigating to `chrome://extensions`.
-3. Enable Developer Mode by clicking the toggle switch next to Developer mode.
-4. Click the Load unpacked button and select the `dist` directory.
+1. Run `npm i`
+2. Run `npm run build`
+3. Within Chrome, open the "Extension Management" at `chrome://extensions`.
+4. Enable "Developer mode" by clicking the toggle in the top-right corner.
+5. Click the "Load unpacked" button in the top-left corner and select the `dist` directory.
