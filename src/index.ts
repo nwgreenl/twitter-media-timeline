@@ -3,7 +3,7 @@ import {
   TWITTER_TIMELINE_PATH,
   SELECTORS,
   MEDIA_CONSTRUCTORS_REGEX,
-} from './consts.js';
+} from "./consts.js";
 
 type EventListenerCallback = (this: Document, ev: Event) => any;
 
@@ -16,8 +16,8 @@ const tweetContainsMedia = (tweet: Element): Boolean => {
     const childConstructor = child.constructor.name;
 
     if (childConstructor.match(MEDIA_CONSTRUCTORS_REGEX)) {
-      if (childConstructor === 'HTMLImageElement') {
-        return (child as HTMLImageElement).src.toLowerCase().includes('media');
+      if (childConstructor === "HTMLImageElement") {
+        return (child as HTMLImageElement).src.toLowerCase().includes("media");
       }
       return true;
     } else if (tweetContainsMedia(child)) return true;
@@ -47,7 +47,7 @@ const findTweetContainer = (
 const onTimelinePage = (url: string) => {
   return (
     url.endsWith(TWITTER_TIMELINE_PATH) ||
-    url.endsWith(TWITTER_TIMELINE_PATH + '/')
+    url.endsWith(TWITTER_TIMELINE_PATH + "/")
   );
 };
 
@@ -79,15 +79,15 @@ const hideNonMediaTweetsFromDom = () => {
     const tweetContainer = findTweetContainer(tweet, timelineContainerChildren);
 
     // set display to none instead of removing to avoid lazy load errors
-    if (tweetContainer && tweetContainer.style.display !== 'none') {
+    if (tweetContainer && tweetContainer.style.display !== "none") {
       removedTweetCount++;
-      tweetContainer.style.display = 'none';
+      tweetContainer.style.display = "none";
     }
   });
 
   if (removedTweetCount) {
     const pluralizedDebugStr = `${removedTweetCount} ${
-      removedTweetCount === 1 ? 'tweet' : 'tweets'
+      removedTweetCount === 1 ? "tweet" : "tweets"
     }`;
     console.log(`[${APP_NAME}]: Hid ${pluralizedDebugStr} from your timeline.`);
   }
@@ -134,11 +134,11 @@ export const init = async () => {
   );
 
   const removeScrollListener = () => {
-    document.removeEventListener('scroll', throttledHideNonMediaTweetsFromDom);
+    document.removeEventListener("scroll", throttledHideNonMediaTweetsFromDom);
   };
   const addScrollListener = () => {
     removeScrollListener();
-    document.addEventListener('scroll', throttledHideNonMediaTweetsFromDom);
+    document.addEventListener("scroll", throttledHideNonMediaTweetsFromDom);
   };
   const run = () => {
     hideNonMediaTweetsFromDom();
@@ -151,7 +151,7 @@ export const init = async () => {
 
   // listen for path changes to run and remove scroll listener appropriately
   document.body.addEventListener(
-    'click',
+    "click",
     () => {
       requestAnimationFrame(() => {
         if (onTimelinePage(location.href)) {
