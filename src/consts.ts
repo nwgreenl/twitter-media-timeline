@@ -1,8 +1,8 @@
 export const APP_NAME = 'Twitter Media Timeline';
-export const TWITTER_TIMELINE_PATH = 'twitter.com/home';
+export const TWITTER_TIMELINE_PATH = 'x.com/home';
 export const SELECTORS = {
   timelineContainer: 'div[aria-label*="Timeline"]',
-  tweet: 'div[data-testid="tweet"]',
+  tweet: 'article[data-testid="tweet"]',
 };
 
 const MEDIA_CONSTRUCTORS = ['HTMLImageElement', 'HTMLVideoElement'];
