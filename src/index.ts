@@ -129,22 +129,30 @@ export const init = async () => {
   const removeScrollListener = () => {
     document.removeEventListener("scroll", throttledHideNonMediaTweetsFromDom);
   };
-  const updateTitle = () => {
-    if (!onTimelinePage(location.href)) return;
-
-    if (document.title.includes("Home")) {
-      document.title = document.title.replace("Home", "Media Timeline");
-    } else {
-      setTimeout(updateTitle, 250);
-    }
-  };
   const addScrollListener = () => {
     removeScrollListener();
     document.addEventListener("scroll", throttledHideNonMediaTweetsFromDom);
   };
+  const updateNavText = () => {
+    const navLink = document.querySelector(SELECTORS.homeNavLink);
+    const navText = navLink?.querySelector("span");
+
+    // hidden on smaller screens
+    if (navText?.innerText) navText.innerText = "Media Timeline";
+  };
+  const addExtensionIndicators = () => {
+    if (!onTimelinePage(location.href)) return updateNavText();
+
+    if (document.title.includes("Home")) {
+      document.title = document.title.replace("Home", "Media Timeline");
+      updateNavText();
+    } else {
+      setTimeout(addExtensionIndicators, 250);
+    }
+  };
   const run = () => {
     hideNonMediaTweetsFromDom();
-    updateTitle();
+    addExtensionIndicators();
     addScrollListener();
   };
 
