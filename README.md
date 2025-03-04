@@ -13,10 +13,10 @@ Icon by [Sohyun Kim](https://sohyun.kim/)
 ## Install
 
 1. Navigate to the [releases page](https://github.com/nwgreenl/twitter-media-timeline/releases/).
-2. Download the newest release's `dist.zip` + extract/unzip.
+2. Download the newest release's zip + extract/unzip.
 3. Open the "Extension Management" page by navigating to `chrome://extensions`.
 4. Enable "Developer mode" by clicking the toggle in the top-right corner.
-5. Click the "Load unpacked" button in the top-left corner and select the `dist` directory.
+5. Click the "Load unpacked" button in the top-left corner and select the extracted/unzipped directory.
 
 ## Dev
 
