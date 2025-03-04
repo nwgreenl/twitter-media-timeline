@@ -1,7 +1,7 @@
 {
   "name": "Twitter Media Timeline",
   "description": "Hides tweets that do not contain either an image or a video from your timeline, similar to the 'Media' tab on a user's profile",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "manifest_version": 3,
   "permissions": ["activeTab"],
   "host_permissions": ["*://x.com/*"],

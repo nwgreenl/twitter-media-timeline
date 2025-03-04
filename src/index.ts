@@ -136,12 +136,22 @@ export const init = async () => {
   const removeScrollListener = () => {
     document.removeEventListener("scroll", throttledHideNonMediaTweetsFromDom);
   };
+  const updateTitle = () => {
+    if (!onTimelinePage(location.href)) return;
+
+    if (document.title.includes("Home")) {
+      document.title = document.title.replace("Home", "Media Timeline");
+    } else {
+      setTimeout(updateTitle, 250);
+    }
+  };
   const addScrollListener = () => {
     removeScrollListener();
     document.addEventListener("scroll", throttledHideNonMediaTweetsFromDom);
   };
   const run = () => {
     hideNonMediaTweetsFromDom();
+    updateTitle();
     addScrollListener();
   };
 

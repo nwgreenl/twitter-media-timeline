@@ -4,7 +4,7 @@
   <img src="https://github.com/nwgreenl/twitter-media-timeline/blob/main/public/images/icon-128.png?raw=true">
 </p>
 
-This is a simple chrome extension that hides tweets that do not contain either an image or a video from your timeline, similar to the "Media" tab on a user's profile.
+This is a simple chrome extension that hides tweets that do not contain either an image or a video from your timeline (home), similar to the "Media" tab on a user's profile. When active, the tab's title will be updated to indicate "Media Timeline".
 
 - Note that this was intended as a personal project without any sort of long-term support plan, but I decided it was worth atleast posting publicly in case others have the same desire to have a media timeline. Please check the last working date on the releases page.
 
