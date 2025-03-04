@@ -1,28 +1,27 @@
 import {
-  APP_NAME,
-  TWITTER_TIMELINE_PATH,
-  SELECTORS,
+  LOG_PREFIX,
   MEDIA_CONSTRUCTORS_REGEX,
+  SELECTORS,
+  TWITTER_TIMELINE_PATH,
 } from "./consts.js";
 
 type EventListenerCallback = (this: Document, ev: Event) => any;
 
-// dfs helpers
 const tweetContainsMedia = (tweet: Element): Boolean => {
   for (let i = 0; i < tweet.childNodes.length; i++) {
-    let child = tweet.children[i];
+    const child = tweet.children[i];
     if (!child) break;
 
     const childConstructor = child.constructor.name;
-
     if (childConstructor.match(MEDIA_CONSTRUCTORS_REGEX)) {
       if (childConstructor === "HTMLImageElement") {
         return (child as HTMLImageElement).src.toLowerCase().includes("media");
       }
       return true;
-    } else if (tweetContainsMedia(child)) return true;
+    } else if (tweetContainsMedia(child)) {
+      return true;
+    }
   }
-
   return false;
 };
 
@@ -30,8 +29,7 @@ const findTweetContainer = (
   tweet: Element | HTMLElement,
   timelineContainerChildren: HTMLCollection | Element[]
 ): HTMLElement | void => {
-  let parent = tweet.parentElement;
-
+  const parent = tweet.parentElement;
   if (!parent) return;
 
   for (let i = 0; i < timelineContainerChildren.length; i++) {
@@ -43,7 +41,6 @@ const findTweetContainer = (
   return findTweetContainer(parent, timelineContainerChildren);
 };
 
-// path helper
 const onTimelinePage = (url: string) => {
   return (
     url.endsWith(TWITTER_TIMELINE_PATH) ||
@@ -51,26 +48,23 @@ const onTimelinePage = (url: string) => {
   );
 };
 
-// main
 const hideNonMediaTweetsFromDom = () => {
   if (!onTimelinePage(location.href)) return;
 
   // find the timeline container and it's immediate children (if any)
   // so that we know where to stop when looking for tweet containers
   const timelineContainer = document.querySelector(SELECTORS.timelineContainer);
-
   if (!timelineContainer) {
     console.error(
-      `[${APP_NAME}] Fatal: Could not find the timeline container using selector ${SELECTORS.timelineContainer}`
+      `${LOG_PREFIX} Fatal: Could not find the timeline container using selector ${SELECTORS.timelineContainer}`
     );
     return;
   }
 
   const timelineContainerChildren = timelineContainer?.children.length
-    ? timelineContainer?.children
+    ? timelineContainer.children
     : [timelineContainer];
   const tweets = document.querySelectorAll(SELECTORS.tweet);
-
   let removedTweetCount = 0;
 
   tweets.forEach(tweet => {
@@ -85,15 +79,14 @@ const hideNonMediaTweetsFromDom = () => {
     }
   });
 
-  if (removedTweetCount) {
-    const pluralizedDebugStr = `${removedTweetCount} ${
-      removedTweetCount === 1 ? "tweet" : "tweets"
-    }`;
-    console.log(`[${APP_NAME}]: Hid ${pluralizedDebugStr} from your timeline.`);
+  if (removedTweetCount > 0) {
+    const pluralizedTweet = removedTweetCount === 1 ? "tweet" : "tweets";
+    console.log(
+      `${LOG_PREFIX}: Hid ${removedTweetCount} ${pluralizedTweet} from your timeline.`
+    );
   }
 };
 
-// timing and run helpers
 const waitForElement = (selector: string) => {
   return new Promise(resolve => {
     if (document.querySelector(selector)) {
